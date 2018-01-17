@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nathan815/TheSwanStation/issues"
   },
-  "homepage": "https://github.com/nathan815/TheSwanStation#readme"
+  "homepage": "https://github.com/nathan815/TheSwanStation#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
 }

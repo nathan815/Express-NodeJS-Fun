@@ -1,14 +1,11 @@
-const http = require('http');
+const calc = require('./calc')
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const numbersToAdd = [
+  3,
+  4,
+  10,
+  2
+]
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+const result = calc.sum(numbersToAdd)
+console.log(`The result is: ${result}`)
