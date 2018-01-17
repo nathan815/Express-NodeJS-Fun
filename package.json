@@ -1,0 +1,19 @@
+{
+  "name": "the-swan-station",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathan815/TheSwanStation.git"
+  },
+  "author": "Nathan Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathan815/TheSwanStation/issues"
+  },
+  "homepage": "https://github.com/nathan815/TheSwanStation#readme"
+}
