@@ -40,23 +40,28 @@ AuthController.authenticate = function(req, res) {
     User.findOne({ where: {username: username} })
         .then((user) => {
             if(!user) {
-                return Promise.reject();
+                throw new Error('Username is invalid.');
             }
             else {
                 return user.comparePasswords(password);
             }
+            a.b();
         })
         .then((user) => {
             const token = jwt.sign(
                 { username: user.username },
                 config.keys.secret,
-                { expiresIn: '30m' }
+                { expiresIn: config.auth.tokenExpiration }
             );
 
             res.json({ success: true, token: 'JWT ' + token });
         })
+        .catch(ReferenceError, function(error) {
+            console.log('REF ERR')
+        })
         .catch(function(error) {
-            res.status(401).json({ message: 'Unable to authenticate. Try again.' });
+            let message = error ? error.message : 'Unable to authenticate. Try again.';
+            res.status(401).json({ message: message });
         });
 };
 

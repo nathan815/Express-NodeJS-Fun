@@ -7,7 +7,7 @@ config.env = process.env.NODE_ENV || 'dev';
 
 config.db = {
     user: 'root', 
-    password: 'root',
+    password: 'root123',
     name: 'nodejs'
 };
 
@@ -16,6 +16,10 @@ config.db.details = {
     port: 3306,      
     dialect: 'mysql',
     operatorsAliases: false
+};
+
+config.auth = {
+	tokenExpiration: '30m'
 };
 
 config.keys = {
