@@ -23,6 +23,10 @@ const UserModel = db.define('user', {
     password: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    role: {
+        type: Sequelize.INTEGER,
+        defaultValue: config.userRoles.user
     }
 }, modelOptions);
 

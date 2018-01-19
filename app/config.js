@@ -21,3 +21,16 @@ config.db.details = {
 config.keys = {
     secret: '/jVdfUX+u/Kn3qPY4+ahjwQgyV5UhkM5cdh1i2xhozE='
 };
+
+const userRoles = {
+    guest: 1,    // ...001
+    user: 2,     // ...010
+    admin: 4     // ...100
+};
+config.userRoles = userRoles;
+
+config.accessLevels = {
+    guest: userRoles.guest | userRoles.user | userRoles.admin,    // ...111
+    user: userRoles.user | userRoles.admin,                       // ...110
+    admin: userRoles.admin                                        // ...100
+};
