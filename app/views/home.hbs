@@ -1,1 +1,21 @@
-<h2>Hello {{name}}<h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello</title>
+</head>
+<body>
+<h1>Node.js</h1>
+
+    <p>{{ name }}</p>
+    <p>{{ comment }}</p>
+
+    <form action="/ok" method="POST">
+        Name: <input type="text" name="name" />
+        <br />
+        <br />
+        Comment: <textarea name="comment"></textarea>
+        <br />
+        <button type="submit">Submit!</button>
+    </form>
+</body>
+</html>
