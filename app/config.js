@@ -2,6 +2,9 @@
 
 let config = module.exports;
 
+config.serverPort = 3000;
+config.env = process.env.NODE_ENV || 'dev';
+
 config.db = {
     user: 'root', 
     password: 'root',

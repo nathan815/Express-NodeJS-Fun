@@ -1,9 +1,8 @@
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-const User = require('../user/User');
+const User = require('../models/User');
 const config = require('./../config');
-const Op = require('sequelize').Op;
 
 // Hooks the JWT Strategy.
 function hookJWTStrategy(passport) {
@@ -17,8 +16,9 @@ function hookJWTStrategy(passport) {
         console.log('username: '+JWTPayload.username);
         User.findOne({ 
                 where: { 
-                    username: {[Op.eq]: JWTPayload.username} 
-                } })
+                    username: JWTPayload.username
+                } 
+            })
             .then(function(user) {
                 if(!user) {
                     callback(null, false);

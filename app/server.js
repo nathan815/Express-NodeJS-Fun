@@ -2,14 +2,15 @@
 const path = require('path');
 const express = require('express');
 //const exphbs = require('express-handlebars');
-const bodyParser= require('body-parser');
+const bodyParser = require('body-parser');
 const sequelize = require('sequelize');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const morgan = require('morgan');
 
 // Application Includes
-var hookJWTStrategy = require('./services/passportStrategy');
+const hookJWTStrategy = require('./services/passportStrategy');
+const config = require('./config');
 
 const app = express();
 
@@ -19,9 +20,6 @@ app.use(bodyParser.json());
 
 // Errors
 //app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-
-// Static resources at /public/
-app.use(express.static(__dirname + '/../public'));
 
 // HTTP Logger
 app.use(morgan('dev'));
@@ -40,11 +38,17 @@ app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 */
 
+// Static resources at /public/
+app.use(express.static(__dirname + '/../public'));
+
+// api endpoint
 app.use('/api',require('./routes/api')(passport));
 
-app.listen(3000, (err) => {
+app.listen(config.serverPort, (err) => {
     if (err) {
-        return console.log('Error: ', err)
+        return console.log('Server Error: ', err)
     }
-    console.log('Server listening on 3000');
+    console.log('Server listening on ' + config.serverPort);
+    console.log("Running in: "  + config.env);
+
 });

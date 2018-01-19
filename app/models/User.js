@@ -7,47 +7,40 @@ const bcrypt = require('bcrypt');
 const config = require('../config');
 const db = require('../services/database');
 
-// 1: The model schema.
-const modelDefinition = {
-    username: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-    },
-
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-};
-
-// 2: The model options.
 const modelOptions = {
-    instanceMethods: {
-        comparePasswords: comparePasswords
-    },
     hooks: {
         beforeValidate: hashPassword
     }
 };
 
 // 3: Define the User model.
-const UserModel = db.define('user', modelDefinition, modelOptions);
-
-UserModel.findAll().then(users => {
-  console.log(users)
-});
+const UserModel = db.define('user', {
+    username: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+}, modelOptions);
 
 // Compares two passwords.
-function comparePasswords(password, callback) {
-    bcrypt.compare(password, this.password, function(error, isMatch) {
-        if(error) {
-            return callback(error);
-        }
-
-        return callback(null, isMatch);
+UserModel.prototype.comparePasswords = function(password) {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, this.password, (err, isMatch) => {
+            if(err) 
+                throw err;
+            if(isMatch) {
+                return resolve(this);
+            }
+            else {
+                return reject(new Error('Invalid Credentials'));
+            }
+        });
     });
-}
+};
 
 // Hashes the password for a user object.
 function hashPassword(user) {
